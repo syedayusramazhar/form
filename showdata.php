@@ -1,7 +1,4 @@
-#tr{
-	background-color:grey;
-	
-}
+
 <html>
 <head>
 </head>
@@ -15,7 +12,14 @@ $result = mysqli_query($conn, $query);
 if(mysqli_num_rows($result)>0){
 	echo "<table border='1' style='width:100%;'><tr id='tr'><th>ID</th><th>NAME</th><th>LAST NAME</th><th>EMAIL</th><th>CONTACT NUMBER</th><th colspan='2'>MODIFICATIONS</th></tr>";
 	while($row = mysqli_fetch_assoc($result)){
-		echo "<tr><td>".$row["id"]."</td><td>".$row["name"]."</td><td>".$row["last_name"]."</td><td>".$row["email"]."</td><td>".$row["contact_no"]."</td><td><a href='edit.php'>EDIT</a></td><td><a href='delete.php'>DELETE</a></td></tr>";
+		echo "<tr>
+		<td>".$row["id"]."</td>
+		<td>".$row["name"]."</td>
+		<td>".$row["last_name"]."</td>
+		<td>".$row["email"]."</td>
+		<td>".$row["contact_no"]."</td>
+	  <td><a href='edit.php?id=$row[id]'>EDIT</a></td>|<td> <a href='delete.php?id=$row[id]'>Delete</a></td>
+		</tr>";
 	}
 		echo "</table>";
 }

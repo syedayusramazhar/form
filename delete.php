@@ -1,5 +1,13 @@
 <?php
 $conn =mysqli_connect("localhost","root","","db_er_system");
+$ID=$_GET['id'];
+$query1="select * from tbl_data where id='{$ID}'";
+$result=mysqli_query($conn,$query1);
+$eid=mysqli_fetch_row($result);
+
+?>
+<?php
+
 if(isset($_POST['sub'])){
 
 	$id = $_POST['id'];
@@ -11,7 +19,8 @@ if(isset($_POST['sub'])){
 			
 			$ins = "DELETE FROM tbl_data WHERE id = $id";
 			if(mysqli_query($conn,$ins)){
-				echo " DATA DELETED";
+				
+				header('location:showdata.php');
 			}else{
 			print mysqli_error($conn);
 				}
@@ -28,7 +37,7 @@ if(isset($_POST['sub'])){
 <h1 id="head">DELETE YOUR DATA</h1>
 <br><br>
 <form method="post">
-<input type ="text" name="id" class="inp" placeholder="Enter Your ID Here" value="<?php if(isset($nam)){echo trim($nam);} ?>"/>
+<input type ="text" name="id" class="inp" placeholder="Enter Your ID Here" value="<?php echo $eid[0]; ?>"/>
 <br><br><br>
 <input type ="submit" name="sub" class="btn" value="DELETE"/>
 <input type ="submit" name="sd" class="btn" formaction="showdata.php" value="BACK TO SHOW DATA"/>

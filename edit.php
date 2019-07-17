@@ -1,5 +1,15 @@
+<!-------id get------>
+
 <?php
 $conn =mysqli_connect("localhost","root","","db_er_system");
+
+$ID=$_GET['id'];
+$query1="select * from tbl_data where id='{$ID}'";
+$result=mysqli_query($conn,$query1);
+$eid=mysqli_fetch_row($result);
+?>
+<!-------validation------>
+<?php
 if(isset($_POST['sub'])){
 	$nam = $_POST['name'];
 	$lnam = $_POST['lname'];
@@ -55,8 +65,7 @@ if(isset($_POST['sub'])){
 		}}
 		else{
 			echo"THERE IS NO ERROR<br>";
-			$ins = "UPDATE tbl_data SET name = '$nam', last_name = '$lnam', email = '$emai', contact_no = '$cn' WHERE id = '$id'";
-			
+			$ins = "UPDATE tbl_data SET name = '$nam', last_name = '$lnam', email = '$emai', contact_no = '$cn' WHERE id = '$id'";	
 			if(mysqli_query($conn,$ins)){
 				echo " DATA UPDATED";
 			}else{
@@ -75,11 +84,11 @@ if(isset($_POST['sub'])){
 <div id="d1">
 <h1 id="head">UPDATE YOUR DATA</h1>
 <form method="post">
-<input type ="text" name="id" class="inp" placeholder="Enter Your ID Here"/>
-<input type ="text" name="name" class="inp" placeholder="Enter Your Name Here" value="<?php if(isset($nam)){echo trim($nam);} ?>"/>
-<input type ="text" name="lname" class="inp" placeholder="Enter Your Last Name Here" value="<?php if(isset($lnam)){echo trim($lnam);} ?>"/>
-<input type ="text" name="email" class="inp" placeholder="Enter Your Email Here" value="<?php if(isset($emai)){echo trim($emai);} ?>"/>
-<input type ="text" name="contact" class="inp" placeholder="Enter Your Contact No. Here" value="<?php if(isset($cn)){echo trim($cn);} ?>"/>
+<input type ="text" name="id" class="inp" placeholder="Enter Your ID Here" value="<?php echo $eid[0]; ?>"/>
+<input type ="text" name="name" class="inp" placeholder="En"  value="<?php echo $eid[1]; ?>"/>
+<input type ="text" name="lname" class="inp" placeholder="Enter Your ter Your Name Here"Last Name Here"  value="<?php echo $eid[2]; ?>"/>
+<input type ="text" name="email" class="inp" placeholder="Enter Your Email Here"  value="<?php echo $eid[3]; ?>"/>
+<input type ="text" name="contact" class="inp" placeholder="Enter Your Contact No. Here"  value="<?php echo $eid[4]; ?>"/>
 <input type ="submit" name="sub" class="btn" value="UPDATE"/>
 <input type ="submit" name="sd" class="btn" formaction="showdata.php" value="BACK TO SHOW DATA"/>
 </div>
