@@ -1,21 +1,24 @@
 <!-------id get------>
 
 <?php
+session_start();
+if(isset($_SESSION['susername'])){
 $conn =mysqli_connect("localhost","root","","db_er_system");
 
 $ID=$_GET['id'];
 $query1="select * from tbl_data where id='{$ID}'";
 $result=mysqli_query($conn,$query1);
 $eid=mysqli_fetch_row($result);
-?>
-<!-------validation------>
-<?php
+
+
 if(isset($_POST['sub'])){
 	$nam = $_POST['name'];
 	$lnam = $_POST['lname'];
 	$emai = $_POST['email'];
 	$cn = $_POST['contact'];
 	$id = $_POST['id'];
+	$uname = $_SESSION['susername'];
+	$paswd= $_SESSION['spassword'];
 	if(!$conn){
 		die("Connection Failed".mysqli_connect_error);
 	}
@@ -67,13 +70,15 @@ if(isset($_POST['sub'])){
 			echo"THERE IS NO ERROR<br>";
 			$ins = "UPDATE tbl_data SET name = '$nam', last_name = '$lnam', email = '$emai', contact_no = '$cn' WHERE id = '$id'";	
 			if(mysqli_query($conn,$ins)){
-				echo " DATA UPDATED";
+				header('location:showdata.php');
 			}else{
 			print mysqli_error($conn);
 				}
 			}
 		}
-	}
+}}else{
+	header('location:login.php');
+}
 
 ?>
 <html>

@@ -1,13 +1,11 @@
 <?php
+session_start();
+if(isset($_SESSION['susername'])){
 $conn =mysqli_connect("localhost","root","","db_er_system");
 $ID=$_GET['id'];
 $query1="select * from tbl_data where id='{$ID}'";
 $result=mysqli_query($conn,$query1);
 $eid=mysqli_fetch_row($result);
-
-?>
-<?php
-
 if(isset($_POST['sub'])){
 
 	$id = $_POST['id'];
@@ -26,7 +24,10 @@ if(isset($_POST['sub'])){
 				}
 			}
 		}
+}else{
 	
+	header('location:login.php');
+}
 ?>
 <html>
 <head>
